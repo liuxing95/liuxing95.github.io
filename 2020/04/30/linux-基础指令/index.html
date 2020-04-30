@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>linux 基础指令 | 不二</title>
+  <meta name="description" content="Linux基础指令1. grep: 查找文件中的关键字1$ grep &quot;string&quot; [选项] file 使用 grep命令查找文件中的所有 user关键字  -i选项可以在文件中不区分大小写地搜索字符串 -c(count)可以找到给定字符串&#x2F;模式匹配的行数  2. cat: 查看文件的内容1cat router.js   cat主要有三大功能  一次显示整个文件 1$ ca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux 基础指令">
+<meta property="og:url" content="https://liuxing95.github.io/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/index.html">
+<meta property="og:site_name" content="不二">
+<meta property="og:description" content="Linux基础指令1. grep: 查找文件中的关键字1$ grep &quot;string&quot; [选项] file 使用 grep命令查找文件中的所有 user关键字  -i选项可以在文件中不区分大小写地搜索字符串 -c(count)可以找到给定字符串&#x2F;模式匹配的行数  2. cat: 查看文件的内容1cat router.js   cat主要有三大功能  一次显示整个文件 1$ ca">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200430114844.jpg">
+<meta property="og:image" content="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200430135423.jpg">
+<meta property="article:published_time" content="2020-04-30T03:40:20.000Z">
+<meta property="article:modified_time" content="2020-04-30T07:01:41.812Z">
+<meta property="article:author" content="liuxing">
+<meta property="article:tag" content="-linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200430114844.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://liuxing95.github.io/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="不二" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/liuxing95" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">不二</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">不二家的猪头肉真的很便宜的</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 杭城, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/liuxing95" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>万年僵尸粉!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/linux/" style="font-size: 13px;">-linux</a> <a href="/tags/nginx/" style="font-size: 13px;">nginx</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/" class="title">linux 基础指令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-04-30T03:40:20.000Z" itemprop="datePublished">2020-04-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/docker%E6%8C%87%E4%BB%A4/" class="title">docker指令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T06:04:51.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/29/nginx/" class="title">nginx</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-29T14:50:46.000Z" itemprop="datePublished">2019-12-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/29/git/" class="title">git手册</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-29T08:40:06.000Z" itemprop="datePublished">2019-12-29</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux基础指令"><span class="toc-number">1.</span> <span class="toc-text">Linux基础指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-grep-查找文件中的关键字"><span class="toc-number">1.0.1.</span> <span class="toc-text">1. grep: 查找文件中的关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-cat-查看文件的内容"><span class="toc-number">1.0.2.</span> <span class="toc-text">2. cat: 查看文件的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-echo-字符串的输出"><span class="toc-number">1.0.3.</span> <span class="toc-text">3. echo: 字符串的输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-touch-创建文件"><span class="toc-number">1.0.4.</span> <span class="toc-text">4. touch 创建文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-rm：-删除文件-目录"><span class="toc-number">1.0.5.</span> <span class="toc-text">5. rm： 删除文件&#x2F;目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-tail查看文档的内容"><span class="toc-number">1.0.6.</span> <span class="toc-text">6. tail查看文档的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-find搜索文件"><span class="toc-number">1.0.7.</span> <span class="toc-text">7. find搜索文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-mv移动文件"><span class="toc-number">1.0.8.</span> <span class="toc-text">8. mv移动文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-wget下载文件的工具"><span class="toc-number">1.0.9.</span> <span class="toc-text">9. wget下载文件的工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-管道命令"><span class="toc-number">1.0.10.</span> <span class="toc-text">10. |管道命令</span></a></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-linux-基础指令" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      linux 基础指令
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/" class="article-date">
+	  <time datetime="2020-04-30T03:40:20.000Z" itemprop="datePublished">2020-04-30</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/linux/" rel="tag">-linux</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Linux基础指令"><a href="#Linux基础指令" class="headerlink" title="Linux基础指令"></a>Linux基础指令</h1><h3 id="1-grep-查找文件中的关键字"><a href="#1-grep-查找文件中的关键字" class="headerlink" title="1. grep: 查找文件中的关键字"></a>1. <code>grep</code>: 查找文件中的关键字</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep &quot;string&quot; [选项] file</span><br></pre></td></tr></table></figure>
+<p>使用 grep命令查找文件中的所有 <code>user</code>关键字<br><img src="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200430114844.jpg" width="50%" height="50%"></p>
+<ul>
+<li><code>-i</code>选项可以在文件中不区分大小写地搜索字符串</li>
+<li><code>-c(count)</code>可以找到给定字符串/模式匹配的行数</li>
+</ul>
+<h3 id="2-cat-查看文件的内容"><a href="#2-cat-查看文件的内容" class="headerlink" title="2. cat: 查看文件的内容"></a>2. <code>cat</code>: 查看文件的内容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat router.js</span><br></pre></td></tr></table></figure>
+<img src="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200430135423.jpg" width="50%" height="50%">
+
+<p>cat主要有三大功能</p>
+<ol>
+<li><p>一次显示整个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat filename</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个文件 并将前面命令的输出内容填充进去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat &gt; filename</span><br></pre></td></tr></table></figure>
+<p>只能创建一个文件 不能编辑已有文件</p>
+</li>
+<li><p>将几个文件合并成一个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat file1 file2 &gt; filename</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="3-echo-字符串的输出"><a href="#3-echo-字符串的输出" class="headerlink" title="3. echo: 字符串的输出"></a>3. <code>echo</code>: 字符串的输出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;some text&quot;</span><br></pre></td></tr></table></figure>
+<p>这是一个内置命令，主要用于Shell脚本和批处理文件中，以将状态文本输出到屏幕或文件。</p>
+<h3 id="4-touch-创建文件"><a href="#4-touch-创建文件" class="headerlink" title="4. touch 创建文件"></a>4. <code>touch</code> 创建文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch somefile</span><br></pre></td></tr></table></figure>
+<p><code>touch</code>命令用于创建没有任何内容的文件。</p>
+<h3 id="5-rm：-删除文件-目录"><a href="#5-rm：-删除文件-目录" class="headerlink" title="5. rm： 删除文件/目录"></a>5. <code>rm</code>： 删除文件/目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm [选项] someFile</span><br></pre></td></tr></table></figure>
+<p>rm 命令用于删除一个文件或者目录</p>
+<p>选项：</p>
+<ul>
+<li><code>-i</code>: 删除前逐一询问确认</li>
+<li><code>-f</code>: 即使原档案属性设为唯读，亦直接删除 无需逐一确认</li>
+<li><code>-r</code>: 将目录及以下之档案亦逐一删除。</li>
+</ul>
+<h3 id="6-tail查看文档的内容"><a href="#6-tail查看文档的内容" class="headerlink" title="6. tail查看文档的内容"></a>6. <code>tail</code>查看文档的内容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tail [选项] someFile</span><br></pre></td></tr></table></figure>
+<p>默认显示文档的最后10行</p>
+<p>几个常用的参数：</p>
+<ul>
+<li><p><code>-f</code>, 循环读取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tail -f notes.log</span><br></pre></td></tr></table></figure>
+<p>此命令显示 <code>notes.log</code> 文件的最后10行。当将某些行添加至<code>notes.log</code>文件时， <code>tail</code>命令会继续显示这些行。显示一直继续 直到按下（<code>Ctrl-C</code>）组合键停止显示。</p>
+</li>
+<li><p><code>+</code>从xx行到结尾</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tail +20 notes.log</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>-c</code> 最后xx行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tail -c 10 notes.log</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="7-find搜索文件"><a href="#7-find搜索文件" class="headerlink" title="7. find搜索文件"></a>7. <code>find</code>搜索文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find path -name filename</span><br></pre></td></tr></table></figure>
+<p><code>find</code>命令可以快速查找文件或目录。当你正在处理具有数百个文件和多个目录的大型项目时，此功能很有用。</p>
+<p>查找指定类型的文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name &quot;*.js&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-mv移动文件"><a href="#8-mv移动文件" class="headerlink" title="8. mv移动文件"></a>8. <code>mv</code>移动文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mv somefile &#x2F;to&#x2F;some&#x2F;other&#x2F;path</span><br></pre></td></tr></table></figure>
+<p>该mv命令将文件或目录从一个位置移动到另一个位置。</p>
+<p>查找指定类型的文件：<br>支持移动单个文件，多个文件和目录。</p>
+<h3 id="9-wget下载文件的工具"><a href="#9-wget下载文件的工具" class="headerlink" title="9. wget下载文件的工具"></a>9. <code>wget</code>下载文件的工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget someurl</span><br></pre></td></tr></table></figure>
+<p><code>wget</code>是一个免费软件包 用于使用 <code>HTTP, HTTPS, FTP和FTPS</code>检索文件<br>这是一个非交互式的命令行工具，因此可以很容易地从脚本，CRON作业，不支持<code>X-Windows</code>的终端等中调用它。</p>
+<h3 id="10-管道命令"><a href="#10-管道命令" class="headerlink" title="10. |管道命令"></a>10. <code>|</code>管道命令</h3><p>通常情况下 我们在终端只能执行一条命令，然后按下回车执行， 那么如何执行多条命令？  </p>
+<ul>
+<li>顺序执行多条命令 <code>command; comand1; command2</code> 简单的顺序指令可以通过 <code>;</code>来实现</li>
+<li>有条件的执行多条命令：<code>which command1 &amp;&amp; command2 || command3</code><ul>
+<li>&amp;&amp; : 如果前一条命令执行成功则执行下一条命令，和JavaScript中用法一致</li>
+<li>|| :与&amp;&amp;命令相反，执行不成功时执行下一个。</li>
+</ul>
+</li>
+<li><code>$?</code>: 存储上一次命令的返回结果</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 栗子：</span><br><span class="line">$ which git&gt;&#x2F;dev&#x2F;null &amp;&amp; git --help  &#x2F;&#x2F; 如果存在git命令，执行git --help命令</span><br><span class="line">$ echo $?</span><br></pre></td></tr></table></figure>
+
+<p>而管道命令则可以衔接各种命令的输出输入，使得连锁操作变得简单。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">管道是一种通信机制，通常用于进程间的通信（也可通过socket进行网络通信），它表现出来的形式将前面每一个进程的输出（stdout）直接作为下一个进程的输入（stdin）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 指令1 | 指令2 | …</span><br></pre></td></tr></table></figure>
+<p>管道命令的注意事项：</p>
+<ul>
+<li>只能处理前一条指令的正确输出，不能处理错误输出；</li>
+<li>后一条指令，必须能够接收标准输入流命令才能执行。</li>
+</ul>
+<p>例子： 1、分页显示 /etc 目录 中内容的详细信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l &#x2F;etc | more</span><br></pre></td></tr></table></figure>
+
+<p>2、将一个字符串输入到一个文件中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;Hello World&quot; | cat &gt; hello.txt</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://liuxing95.github.io/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/" title="linux 基础指令" target="_blank" rel="external">https://liuxing95.github.io/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/liuxing95" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/liuxing95" target="_blank"><span class="text-dark">不二</span><small class="ml-1x">不二家的猪头肉真的很便宜的</small></a></h3>
+        <div>憨憨不二猪头</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/01/14/docker%E6%8C%87%E4%BB%A4/" title="docker指令"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/liuxing95" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

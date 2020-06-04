@@ -27,8 +27,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200430114844.jpg">
 <meta property="og:image" content="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200430135423.jpg">
+<meta property="og:image" content="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200604101924.jpg">
 <meta property="article:published_time" content="2020-04-30T03:40:20.000Z">
-<meta property="article:modified_time" content="2020-05-16T02:10:06.260Z">
+<meta property="article:modified_time" content="2020-06-04T02:40:51.558Z">
 <meta property="article:author" content="liuxing">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -305,7 +306,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux基础指令"><span class="toc-number">1.</span> <span class="toc-text">Linux基础指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-grep-查找文件中的关键字"><span class="toc-number">1.0.1.</span> <span class="toc-text">1. grep: 查找文件中的关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-cat-查看文件的内容"><span class="toc-number">1.0.2.</span> <span class="toc-text">2. cat: 查看文件的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-echo-字符串的输出"><span class="toc-number">1.0.3.</span> <span class="toc-text">3. echo: 字符串的输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-touch-创建文件"><span class="toc-number">1.0.4.</span> <span class="toc-text">4. touch 创建文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-rm：-删除文件-目录"><span class="toc-number">1.0.5.</span> <span class="toc-text">5. rm： 删除文件&#x2F;目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-tail查看文档的内容"><span class="toc-number">1.0.6.</span> <span class="toc-text">6. tail查看文档的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-find搜索文件"><span class="toc-number">1.0.7.</span> <span class="toc-text">7. find搜索文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-mv移动文件"><span class="toc-number">1.0.8.</span> <span class="toc-text">8. mv移动文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-wget下载文件的工具"><span class="toc-number">1.0.9.</span> <span class="toc-text">9. wget下载文件的工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-管道命令"><span class="toc-number">1.0.10.</span> <span class="toc-text">10. |管道命令</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux基础指令"><span class="toc-number">1.</span> <span class="toc-text">Linux基础指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-grep-查找文件中的关键字"><span class="toc-number">1.0.1.</span> <span class="toc-text">1. grep: 查找文件中的关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-cat-查看文件的内容"><span class="toc-number">1.0.2.</span> <span class="toc-text">2. cat: 查看文件的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-echo-字符串的输出"><span class="toc-number">1.0.3.</span> <span class="toc-text">3. echo: 字符串的输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-touch-创建文件"><span class="toc-number">1.0.4.</span> <span class="toc-text">4. touch 创建文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-rm：-删除文件-目录"><span class="toc-number">1.0.5.</span> <span class="toc-text">5. rm： 删除文件&#x2F;目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-tail查看文档的内容"><span class="toc-number">1.0.6.</span> <span class="toc-text">6. tail查看文档的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-find搜索文件"><span class="toc-number">1.0.7.</span> <span class="toc-text">7. find搜索文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-mv移动文件"><span class="toc-number">1.0.8.</span> <span class="toc-text">8. mv移动文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-wget下载文件的工具"><span class="toc-number">1.0.9.</span> <span class="toc-text">9. wget下载文件的工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-管道命令"><span class="toc-number">1.0.10.</span> <span class="toc-text">10. |管道命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-ls"><span class="toc-number">1.0.11.</span> <span class="toc-text">11. ls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-查看进程"><span class="toc-number">1.0.12.</span> <span class="toc-text">12.  查看进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-tar解压缩"><span class="toc-number">1.0.13.</span> <span class="toc-text">13. tar解压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-lsof"><span class="toc-number">1.0.14.</span> <span class="toc-text">14.  lsof</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-nc"><span class="toc-number">1.0.15.</span> <span class="toc-text">15.  nc</span></a></li></ol></li></ol></li></ol>
     </nav>
   </div>
 </aside>
@@ -439,6 +440,99 @@
 
 <p>2、将一个字符串输入到一个文件中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;Hello World&quot; | cat &gt; hello.txt</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="11-ls"><a href="#11-ls" class="headerlink" title="11. ls"></a>11. ls</h3><p>在linux中 通常使用 <code>ls -l</code>列出， 其中可以查看<code>文件属性</code>,所属用户组等较为详细的信息。下面详细解释从左到右每一列是什么意思</p>
+<img src="http://lx724-bucket.oss-ap-southeast-1.aliyuncs.com/blog/linux/20200604101924.jpg" width="50%" height="50%">
+
+<ul>
+<li><code>第一列第一个字段：</code> 文件类型， 后面<code>9个字符是模式</code>， 其中分为<code>三组</code>， 每一组三个字段。 第一组为所属<code>用户权限</code>。 第二组为所属<code>组的权限</code>, 第三组为<code>其他用户所属权限</code>。 其中r(read)代表可读，w(write)代表可写，e(execute)代表可执行。在后面的9个字符中，如果是字母说明有相应的权限，如果为<code>&quot;-&quot;代表没有权限</code>。举一个例子</li>
+</ul>
+<p>-rw-r-r–:此为普通文件，对于所属用户为可读可写不能执行，对于所属组仅仅可读，对于其他用户仅为读。</p>
+<ul>
+<li>第二列 硬连接树木<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">硬链接允许作用之一是允许一个文件拥有多个有效路径名，从而防止误删。但是只能在同一文件系统中的文件之间进行连接，不能对目录进行创建。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>第三列是所属用户，第四列为所属组，第五列为文件大小，第六列为文件被修改的时间，最后为文件名。其中使用chown改变所属用户，chgrp改变所属组。</p>
+<h3 id="12-查看进程"><a href="#12-查看进程" class="headerlink" title="12.  查看进程"></a>12.  查看进程</h3><p>有的时候 我们需要查看进程是否已经启动或者尝试终止进程。<br>经常使用的命令为 <code>ps -ef</code> — 列出当前正在运行的程序<br>那如何定位我们想要查看的进程A， 这个时候使用 <code>grep</code>， 即</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep A</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="13-tar解压缩"><a href="#13-tar解压缩" class="headerlink" title="13. tar解压缩"></a>13. tar解压缩</h3><p>解压缩命令<br>常用参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-c: 创建tar文件</span><br><span class="line">-x: 解开tar文件</span><br><span class="line">-t: 列出tar文件中包含的文件信息</span><br><span class="line">-r: 附加新的文件到 tar文件中</span><br></pre></td></tr></table></figure>
+<p>常用命令组合</p>
+<ul>
+<li>tar -xvf /home/a.tar  // 打开tar打包文件</li>
+<li>tar -zxvf /home/a.tar.gz // 解压以gzip压缩的文件</li>
+<li>tar -jxvf /home/a.tar.bz2 //解压以bzip压缩的文件</li>
+<li>tar -cvf /home/a.tar /home 打包/home下所有文件</li>
+</ul>
+<h3 id="14-lsof"><a href="#14-lsof" class="headerlink" title="14.  lsof"></a>14.  lsof</h3><p>列出当前系统打开的文件描述符工具。可以得知感兴趣的描述符是被哪些进程使用</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i</td>
+<td>显示socket文件描述符</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>显示指定的命令打开的所有文件描述符</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>仅显示打开了目标文件描述符的进程pid</td>
+</tr>
+</tbody></table>
+<p>例子<br>|  执行任务   |     命令  |<br>|  —-  | —-  |<br>| 列出所有的网络链接  | lsof -i |<br>| 列出所有udp的网络链接  | lsof -i udp |<br>| 列出谁在使用某个端口  | lsof -i :3306  |<br>| 列出谁在使用特定的tcp端口  | lsof -i tcp:80  |<br>| 根据文件描述范围列出文件信息  | lsof -d 2-3 |</p>
+<h3 id="15-nc"><a href="#15-nc" class="headerlink" title="15.  nc"></a>15.  nc</h3><p>nc–&gt;“瑞士军刀”。不知大家在渗透过程中，拿了shell有没有使用nc搞点事儿。它用来快速构建网络链接。常用来调试客户端程序。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i</td>
+<td>设置数据包传送的时间间隔</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>以服务器方式运行。默认为客户端运行</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>重复接受并处理某个端口上的所有链接</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>以客户端运行时强制其使用指定端口</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>将CR和LF两个字符作为结束符</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>使用udp协议。默认tcp协议</td>
+</tr>
+<tr>
+<td>-X</td>
+<td>nc客户端余代理服务器通信时默认为socks5协议</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>扫描目标机器某个范围服务是否开启</td>
+</tr>
+</tbody></table>
+<p>案例<br>|  执行任务   |     执行命令  |<br>|  —-  | —-  |<br>| 扫描机器A端口号在30-40的服务 | nc -z A 30-40 |<br>| 连接服务器A 端口号为5000 | nc -C A 5000 |<br>| 传送文件  | MachineA:nc -v -n ip portE:\a.exe  |</p>
+
       
     </div>
     <div class="article-footer">

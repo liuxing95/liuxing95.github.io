@@ -17,17 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2020/5 | 不二</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不二">
-<meta property="og:url" content="https://liuxing95.github.io/archives/2020/05/index.html">
+  <title>redis key &amp;&amp; string | 不二</title>
+  <meta name="description" content="redis命令学习Redis 键（key）基本语法结构如下 1redis &gt; command key_name  123456789101112131415161718192021redis &gt; del key （删除key）redis &gt; exists key (检查给定key是否存在)redis &gt; expire key seconds (为给定 key 设置过期时间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis key &amp;&amp; string">
+<meta property="og:url" content="https://liuxing95.github.io/2020/09/03/redis_key_string/index.html">
 <meta property="og:site_name" content="不二">
+<meta property="og:description" content="redis命令学习Redis 键（key）基本语法结构如下 1redis &gt; command key_name  123456789101112131415161718192021redis &gt; del key （删除key）redis &gt; exists key (检查给定key是否存在)redis &gt; expire key seconds (为给定 key 设置过期时间">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-03T09:34:07.000Z">
+<meta property="article:modified_time" content="2020-09-03T11:25:06.921Z">
 <meta property="article:author" content="liuxing">
-<meta property="article:tag" content="liuxing9724@gmail.com">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://liuxing95.github.io/archives/2020/05/index.html">
+  <link rel="canonical" href="https://liuxing95.github.io/2020/09/03/redis_key_string/index.html">
   
     <link rel="alternate" href="/atom.xml" title="不二" type="application/atom+xml">
   
@@ -295,48 +299,132 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2020/5</h1>
-	      <p class="text-muted">共 1 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-redis_key_string" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      redis key &amp;&amp; string
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2020" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2020
-            </a>
-            <!-- <a href="/archives/2020" class="archive-year">2020</a> -->
-          </h3>
-        </div>
-        <div id="collapse2020" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2020">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/09/03/redis_key_string/" class="article-date">
+	  <time datetime="2020-09-03T09:34:07.000Z" itemprop="datePublished">2020-09-03</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/redis/" rel="tag">redis</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/09/03/redis_key_string/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <a id="more"></a>
+<h1 id="redis命令学习"><a href="#redis命令学习" class="headerlink" title="redis命令学习"></a>redis命令学习</h1><h2 id="Redis-键（key）"><a href="#Redis-键（key）" class="headerlink" title="Redis 键（key）"></a>Redis 键（key）</h2><p>基本语法结构如下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis &gt; <span class="built_in">command</span> key_name</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">redis &gt; del key （删除key）</span><br><span class="line"></span><br><span class="line">redis &gt; exists key (检查给定key是否存在)</span><br><span class="line"></span><br><span class="line">redis &gt; expire key seconds (为给定 key 设置过期时间，以秒计。)</span><br><span class="line"></span><br><span class="line">redis &gt; expireat key timestamp (EXPIREAT 的作用和 EXPIRE 类似，都用于为 key 设置过期时间。 不同在于 EXPIREAT 命令接受的时间参数是 UNIX 时间戳(unix timestamp))</span><br><span class="line"></span><br><span class="line">redis &gt; pexpire key milliseconds (设置 key 的过期时间以毫秒计。)</span><br><span class="line"></span><br><span class="line">redis &gt; keys  PATTERN (Redis Keys 命令用于查找所有符合给定模式 pattern 的 key 。。) (KEYS liu*)</span><br><span class="line"></span><br><span class="line">redis &gt; move key db （ 将当前数据库的 key 移动到给定的数据库 db 当中。 ）</span><br><span class="line"></span><br><span class="line">redis &gt; persist key（ 移除 key 的过期时间，key 将持久保持。 ）</span><br><span class="line"></span><br><span class="line">redis &gt; rename key newkey ( 修改key的名称 )</span><br><span class="line"></span><br><span class="line">redis &gt; renamenx key newkey ( 仅当newkey 不存在时， 将key改为newkey )</span><br><span class="line"></span><br><span class="line">redis &gt; type key (返回 key 所储存的值的类型。)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Redis字符串-string"><a href="#Redis字符串-string" class="headerlink" title="Redis字符串(string)"></a>Redis字符串(string)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">redis &gt; set key value</span><br><span class="line"></span><br><span class="line">redis &gt; get key</span><br><span class="line"></span><br><span class="line">redis &gt; getrange key start end</span><br><span class="line">redis 127.0.0.1:6379&gt; SET mykey &quot;This is my test key&quot;</span><br><span class="line">redis 127.0.0.1:6379&gt; GETRANGE mykey 0 3</span><br><span class="line">&quot;This&quot;</span><br><span class="line">redis 127.0.0.1:6379&gt; GETRANGE mykey 0 -1</span><br><span class="line">&quot;This is my test key&quot;</span><br><span class="line"></span><br><span class="line">redis &gt; getset key value ( 将 给定key的值设为value 并返回key的旧值)</span><br><span class="line"></span><br><span class="line">redis &gt; mget key1 [key2...] ( 获取所有（一个或多个）给定的key值)</span><br><span class="line"></span><br><span class="line">redis &gt; setex key seconds value (将值 value 关联到 key ，并将 key 的过期时间设为 seconds (以秒为单位)。)</span><br><span class="line"></span><br><span class="line">redis &gt; setnx key value ( 只有在 key 不存在时设置 key 的值。 )</span><br><span class="line"></span><br><span class="line">redis &gt; setrange key offset value ( 用 value 参数覆写给定 key 所储存的字符串值，从偏移量 offset 开始。 )</span><br><span class="line">redis 127.0.0.1:6379&gt; SET key1 &quot;Hello World&quot;</span><br><span class="line">redis 127.0.0.1:6379&gt; SETRANGE key1 6 &quot;Redis&quot;</span><br><span class="line">redis 127.0.0.1:6379&gt; GET key1</span><br><span class="line">&quot;Hello Redis&quot;</span><br><span class="line"></span><br><span class="line">redis &gt; strlen key ( 返回 key 所储存的字符串值的长度。 )</span><br><span class="line"></span><br><span class="line">redis &gt; mset key value [ key value ...] ( 同时设置一个或多个 key-value 对。)</span><br><span class="line"></span><br><span class="line">redis &gt; msetnx key value [key value ...] ( 同时设置一个或多个 key-value 对，当且仅当所有给定 key 都不存在。 )</span><br><span class="line"></span><br><span class="line">redis &gt; incr key ( 将 key 中储存的数字值增一 )</span><br><span class="line"></span><br><span class="line">redis &gt; incrby key increment ( 将 key 所储存的值加上给定的增量值（increment） )</span><br><span class="line"></span><br><span class="line">redis &gt; incrbyfloat key increment ( 将 key 所储存的值加上给定的浮点增量值（increment） )</span><br><span class="line"></span><br><span class="line">redis &gt; decr key (  将 key 中储存的数字值减一。)</span><br><span class="line"></span><br><span class="line">redis &gt; append key value ( 如果 key 已经存在并且是一个字符串， APPEND 命令将指定的 value 追加到该 key 原来值（value）的末尾。 )</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://liuxing95.github.io/2020/09/03/redis_key_string/" title="redis key &amp;&amp; string" target="_blank" rel="external">https://liuxing95.github.io/2020/09/03/redis_key_string/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/liuxing95" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/liuxing95" target="_blank"><span class="text-dark">不二</span><small class="ml-1x">不二家的猪头肉真的很便宜的</small></a></h3>
+        <div>憨憨不二猪头</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/09/03/redis-hash/" title="redis_hash"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
     
-<a href="/2020/05/16/iterm2/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-16T02:15:11.000Z" itemprop="datePublished">2020-05-16</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> iterm2
-</a>
-
-
+    <li class="next">
+      <a href="/2020/06/18/babel/" title="babel"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -389,6 +477,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 

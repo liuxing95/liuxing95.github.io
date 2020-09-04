@@ -17,17 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2020/5 | 不二</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不二">
-<meta property="og:url" content="https://liuxing95.github.io/archives/2020/05/index.html">
+  <title>redis_list | 不二</title>
+  <meta name="description" content="redis-hashRedis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051redis &gt; blpop key [key2] timeout移出并获取">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis_list">
+<meta property="og:url" content="https://liuxing95.github.io/2020/09/03/redis-list/index.html">
 <meta property="og:site_name" content="不二">
+<meta property="og:description" content="redis-hashRedis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051redis &gt; blpop key [key2] timeout移出并获取">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-03T11:24:40.000Z">
+<meta property="article:modified_time" content="2020-09-04T06:15:47.744Z">
 <meta property="article:author" content="liuxing">
-<meta property="article:tag" content="liuxing9724@gmail.com">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://liuxing95.github.io/archives/2020/05/index.html">
+  <link rel="canonical" href="https://liuxing95.github.io/2020/09/03/redis-list/index.html">
   
     <link rel="alternate" href="/atom.xml" title="不二" type="application/atom+xml">
   
@@ -295,48 +299,125 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2020/5</h1>
-	      <p class="text-muted">共 1 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-redis-list" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      redis_list
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2020" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2020
-            </a>
-            <!-- <a href="/archives/2020" class="archive-year">2020</a> -->
-          </h3>
-        </div>
-        <div id="collapse2020" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2020">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/09/03/redis-list/" class="article-date">
+	  <time datetime="2020-09-03T11:24:40.000Z" itemprop="datePublished">2020-09-03</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/redis/" rel="tag">redis</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/09/03/redis-list/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h1 id="redis-hash"><a href="#redis-hash" class="headerlink" title="redis-hash"></a>redis-hash</h1><h4>Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）</h4>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">redis &gt; blpop key [key2] timeout</span><br><span class="line">移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</span><br><span class="line"></span><br><span class="line">redis &gt; brpop key [key2] timeout</span><br><span class="line">移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</span><br><span class="line"></span><br><span class="line">redis &gt; brpoplpush source destination timeout</span><br><span class="line">从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</span><br><span class="line"></span><br><span class="line">redis &gt; lindex key index</span><br><span class="line">通过索引获取列表中的元素</span><br><span class="line"></span><br><span class="line">redis &gt; linsert key before|after pivot value</span><br><span class="line">在列表的元素前或者后插入元素</span><br><span class="line">将值 value 插入到列表 key 当中，位于值 pivot 之前或之后。</span><br><span class="line"></span><br><span class="line">redis &gt; llen key</span><br><span class="line">获取列表长度</span><br><span class="line"></span><br><span class="line">redis &gt; lpop key</span><br><span class="line">移出并获取列表的第一个元素</span><br><span class="line"></span><br><span class="line">redis &gt; lpush key value1 [value2]</span><br><span class="line">将一个或多个值插入到列表头部</span><br><span class="line"></span><br><span class="line">redis &gt; lpushx key value</span><br><span class="line">将一个值插入到已存在的列表头部</span><br><span class="line"></span><br><span class="line">redis &gt; lrange key start stop</span><br><span class="line">获取列表指定范围内的元素</span><br><span class="line"></span><br><span class="line">redis &gt; lrem key count value</span><br><span class="line">Redis Lrem 根据参数 COUNT 的值，移除列表中与参数 VALUE 相等的元素。</span><br><span class="line"></span><br><span class="line">redis &gt; lset key index value</span><br><span class="line">通过索引设置列表元素的值</span><br><span class="line"></span><br><span class="line">redis &gt; ltrim key start stop</span><br><span class="line">对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。</span><br><span class="line"></span><br><span class="line">redis &gt; rpop key</span><br><span class="line">移出列表的最后一个元素 返回值为移除的元素</span><br><span class="line"></span><br><span class="line">redis &gt; rpoplpush source destination</span><br><span class="line">移除列表的最后一个元素，并将该元素添加到另一个列表并返回</span><br><span class="line"></span><br><span class="line">redis &gt; rpush key value1 [value2]</span><br><span class="line">在列表中添加一个或多个值</span><br><span class="line"></span><br><span class="line">redis &gt; rpushx key value</span><br><span class="line">为已存在的列表添加值</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://liuxing95.github.io/2020/09/03/redis-list/" title="redis_list" target="_blank" rel="external">https://liuxing95.github.io/2020/09/03/redis-list/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/liuxing95" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/liuxing95" target="_blank"><span class="text-dark">不二</span><small class="ml-1x">不二家的猪头肉真的很便宜的</small></a></h3>
+        <div>憨憨不二猪头</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
     
     
-<a href="/2020/05/16/iterm2/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-16T02:15:11.000Z" itemprop="datePublished">2020-05-16</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> iterm2
-</a>
-
-
+    <li class="next">
+      <a href="/2020/09/03/redis-hash/" title="redis_hash"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -389,6 +470,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 

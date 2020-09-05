@@ -17,17 +17,24 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>分类: 工具集 | 不二</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不二">
-<meta property="og:url" content="https://liuxing95.github.io/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/index.html">
+  <title>redis-发布订阅 | 不二</title>
+  <meta name="description" content="redis 发布订阅Redis 发布订阅（pub&#x2F;sub）是一种消息通信模式： 发送者（pub）发送消息， 订阅者（sub）接收消息  redis客户端可以订阅任意数量的频道 下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：   当有新消息通过 PUBLISH 命令发送给频道 channel1 时 这个消">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis-发布订阅">
+<meta property="og:url" content="https://liuxing95.github.io/2020/09/05/redis/redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85/index.html">
 <meta property="og:site_name" content="不二">
+<meta property="og:description" content="redis 发布订阅Redis 发布订阅（pub&#x2F;sub）是一种消息通信模式： 发送者（pub）发送消息， 订阅者（sub）接收消息  redis客户端可以订阅任意数量的频道 下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：   当有新消息通过 PUBLISH 命令发送给频道 channel1 时 这个消">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2014/11/pubsub1.png">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2014/11/pubsub2.png">
+<meta property="article:published_time" content="2020-09-05T08:27:35.000Z">
+<meta property="article:modified_time" content="2020-09-05T08:37:53.822Z">
 <meta property="article:author" content="liuxing">
-<meta property="article:tag" content="liuxing9724@gmail.com">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2014/11/pubsub1.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://liuxing95.github.io/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/index.html">
+  <link rel="canonical" href="https://liuxing95.github.io/2020/09/05/redis/redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85/index.html">
   
     <link rel="alternate" href="/atom.xml" title="不二" type="application/atom+xml">
   
@@ -293,93 +300,141 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-categories article-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">分类: 工具集</h1>
-      <p class="hidden-xs">共 6 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/categories">All</a></li>
-          
-          <li><a href="/categories/工具集/">工具集</a></li>
-          
-          <li><a href="/categories/数据库/">数据库</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="panel panel-default b-no">
-    <div class="panel-heading" role="tab">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapse工具集" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              工具集
-            </a>
-            <small class="text-muted">(Total 6 articles)</small>
-        </h4>
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-redis/redis-发布订阅" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      redis-发布订阅
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/09/05/redis/redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85/" class="article-date">
+	  <time datetime="2020-09-05T08:27:35.000Z" itemprop="datePublished">2020-09-05</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/redis/" rel="tag">redis</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/09/05/redis/redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
     </div>
-    <div id="collapse工具集" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading工具集">
-        <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2020/06/18/babel/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-06-18T03:12:10.000Z" itemprop="datePublished">2020-06-18</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> babel
-</a>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="redis-发布订阅"><a href="#redis-发布订阅" class="headerlink" title="redis 发布订阅"></a>redis 发布订阅</h1><h4>Redis 发布订阅（pub/sub）是一种消息通信模式： 发送者（pub）发送消息， 订阅者（sub）接收消息</h4>
 
+<p>redis客户端可以订阅任意数量的频道</p>
+<p>下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：</p>
+<img src="https://www.runoob.com/wp-content/uploads/2014/11/pubsub1.png">
 
-              
-                
-<a href="/2020/05/16/iterm2/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-16T02:15:11.000Z" itemprop="datePublished">2020-05-16</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> iterm2
-</a>
+<p>当有新消息通过 PUBLISH 命令发送给频道 channel1 时 这个消息就会被发送给订阅它的三个客户端</p>
+<img src="https://www.runoob.com/wp-content/uploads/2014/11/pubsub2.png">
 
+<p>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SUBSCRIBE redisChat</span><br><span class="line"></span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">1) &quot;subscribe&quot;</span><br><span class="line">2) &quot;redisChat&quot;</span><br><span class="line">3) (integer) 1</span><br></pre></td></tr></table></figure>
 
-              
-                
-<a href="/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-04-30T03:40:20.000Z" itemprop="datePublished">2020-04-30</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> linux 基础指令
-</a>
+<p>现在，我们先重新开启个 redis 客户端，然后在同一个频道 redisChat 发布两次消息，订阅者就能接收到消息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PUBLISH redisChat &quot;Redis is a great caching technique&quot;</span><br><span class="line"></span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; PUBLISH redisChat &quot;Learn redis by runoob.com&quot;</span><br><span class="line"></span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line"># 订阅者的客户端会显示如下消息</span><br><span class="line">1) &quot;message&quot;</span><br><span class="line">2) &quot;redisChat&quot;</span><br><span class="line">3) &quot;Redis is a great caching technique&quot;</span><br><span class="line">1) &quot;message&quot;</span><br><span class="line">2) &quot;redisChat&quot;</span><br><span class="line">3) &quot;Learn redis by runoob.com&quot;</span><br></pre></td></tr></table></figure>
 
-
-              
-                
-<a href="/2020/01/14/docker%E6%8C%87%E4%BB%A4/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-01-14T06:04:51.000Z" itemprop="datePublished">2020-01-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> docker指令
-</a>
-
-
-              
-                
-<a href="/2019/12/29/nginx/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2019-12-29T14:50:46.000Z" itemprop="datePublished">2019-12-29</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> nginx
-</a>
-
-
-              
-                
-<a href="/2019/12/29/git/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2019-12-29T08:40:06.000Z" itemprop="datePublished">2019-12-29</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> git手册
-</a>
-
-
-              
-            </div>
-        </div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">redis &gt; psubscribe pattern [pattern...]</span><br><span class="line">订阅一个或多个符合给定模式的频道。</span><br><span class="line"></span><br><span class="line">redis &gt; pubsub subcommand [argument [argument ...]]</span><br><span class="line">查看订阅与发布系统状态</span><br><span class="line"></span><br><span class="line">redis &gt; publish channel message</span><br><span class="line">将信息发送到指定的频道</span><br><span class="line"></span><br><span class="line">redis &gt; punsunscribe [pattern [pattern]]</span><br><span class="line">退订所有给定模式的频道。</span><br><span class="line"></span><br><span class="line">redis &gt; subscribe channel [channel]</span><br><span class="line">订阅给定的一个或多个频道的信息。</span><br><span class="line"></span><br><span class="line">unsubscribe [channel [channel]]</span><br><span class="line">指退订给定的频道</span><br></pre></td></tr></table></figure>
+      
     </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://liuxing95.github.io/2020/09/05/redis/redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85/" title="redis-发布订阅" target="_blank" rel="external">https://liuxing95.github.io/2020/09/05/redis/redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/liuxing95" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/liuxing95" target="_blank"><span class="text-dark">不二</span><small class="ml-1x">不二家的猪头肉真的很便宜的</small></a></h3>
+        <div>憨憨不二猪头</div>
+      </div>
+    </figure>
+  </div>
 </div>
+
+
     </div>
   </article>
-   
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/09/05/redis/redis-%E4%BA%8B%E5%8A%A1/" title="redis-事务"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/09/05/redis/redis-hyperlog/" title="redis-hyperlog"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -432,6 +487,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 

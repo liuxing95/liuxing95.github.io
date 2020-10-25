@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>react hooks学习总结 | 刘兴</title>
+  <meta name="description" content="开篇这一片文章中 可能会很长 我会把我看到大部分有意思的文章写到这里 做一个hooks的学习总结，以待下次直接拿来看（老拿来主义了） 问题1 React Hooks 为什么会使用顺序调用我们在React官方文档中有一条规则 只能在最顶层使用Hook不要在循环，条件或嵌套函数中调用 Hook  这意味着一下几种使用方式都是有问题的  循环函数中使用 条件判断函数 子函数  这几种情况 都有可能存在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react hooks学习总结">
+<meta property="og:url" content="https://liuxing95.github.io/2020/10/23/react/hooks/react%20hooks%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="不二">
+<meta property="og:description" content="开篇这一片文章中 可能会很长 我会把我看到大部分有意思的文章写到这里 做一个hooks的学习总结，以待下次直接拿来看（老拿来主义了） 问题1 React Hooks 为什么会使用顺序调用我们在React官方文档中有一条规则 只能在最顶层使用Hook不要在循环，条件或嵌套函数中调用 Hook  这意味着一下几种使用方式都是有问题的  循环函数中使用 条件判断函数 子函数  这几种情况 都有可能存在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/25/1674acc66f788788?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/25/1674acc67862c79e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/25/1674acc690273661?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/25/1674acc694b6c0d5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/25/1674acc69844634e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/25/1674acc700a1cf17?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="article:published_time" content="2020-10-23T07:28:51.000Z">
+<meta property="article:modified_time" content="2020-10-25T16:45:34.139Z">
+<meta property="article:author" content="liuxing">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="hooks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/11/25/1674acc66f788788?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://liuxing95.github.io/2020/10/23/react/hooks/react%20hooks%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="不二" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/liuxing95" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">打工人</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">打工人</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 杭州, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/liuxing95" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>今天你也没吃饭吗？？</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/babel/" rel="tag">babel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hooks/" rel="tag">hooks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iterm/" rel="tag">iterm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/babel/" style="font-size: 13px;">babel</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hooks/" style="font-size: 13px;">hooks</a> <a href="/tags/iterm/" style="font-size: 13px;">iterm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/nginx/" style="font-size: 13px;">nginx</a> <a href="/tags/react/" style="font-size: 13px;">react</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/React/">React</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/10/23/react/hooks/react%20hooks%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="title">react hooks学习总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-23T07:28:51.000Z" itemprop="datePublished">2020-10-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/06/18/babel/" class="title">babel</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-18T03:12:10.000Z" itemprop="datePublished">2020-06-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/16/iterm2/" class="title">iterm2</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-16T02:15:11.000Z" itemprop="datePublished">2020-05-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/04/30/linux-%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/" class="title">linux 基础指令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-04-30T03:40:20.000Z" itemprop="datePublished">2020-04-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86/">工具集</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/docker%E6%8C%87%E4%BB%A4/" class="title">docker指令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T06:04:51.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-react/hooks/react hooks学习总结" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      react hooks学习总结
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/10/23/react/hooks/react%20hooks%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="article-date">
+	  <time datetime="2020-10-23T07:28:51.000Z" itemprop="datePublished">2020-10-23</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/hooks/" rel="tag">hooks</a>, <a class="article-tag-link" href="/tags/react/" rel="tag">react</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/10/23/react/hooks/react%20hooks%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h1><p>这一片文章中 可能会很长 我会把我看到大部分有意思的文章写到这里 做一个hooks的学习总结，以待下次直接拿来看（老拿来主义了）</p>
+<h1 id="问题1-React-Hooks-为什么会使用顺序调用"><a href="#问题1-React-Hooks-为什么会使用顺序调用" class="headerlink" title="问题1 React Hooks 为什么会使用顺序调用"></a>问题1 React Hooks 为什么会使用顺序调用</h1><p>我们在<a href="https://zh-hans.reactjs.org/docs/hooks-rules.html" target="_blank">React官方文档</a>中有一条规则 <strong>只能在最顶层使用Hook</strong><br>不要在循环，条件或嵌套函数中调用 Hook  这意味着一下几种使用方式都是有问题的</p>
+<ul>
+<li>循环函数中使用</li>
+<li>条件判断函数</li>
+<li>子函数</li>
+</ul>
+<p>这几种情况 都有可能存在 第一次调用函数组件 使用hooks的顺序 与 第二次 使用hooks的顺序 对应不上 这时候 大概你的程序就崩了吧。。</p>
+<p>下面我们看一个使用useState的声明多个state的代码</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 译:https://github.com/answershuto */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">RenderFunctionComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [firstName, setFirstName] = useState(<span class="string">"Rudi"</span>);</span><br><span class="line">  <span class="keyword">const</span> [lastName, setLastName] = useState(<span class="string">"Yardley"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Button onClick=&#123;() =&gt; setFirstName(<span class="string">"Fred"</span>)&#125;&gt;Fred&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面我们来梳理 react内部是如何进行工作的<br>步骤如下  </p>
+<h3 id="1-初始化"><a href="#1-初始化" class="headerlink" title="(1) 初始化"></a>(1) 初始化</h3><p>设置两个空数组 “setters” 和 “state”  (useState 返回的 两个值)</p>
+<p>设置指针 “cursor” 为 0</p>
+<img  src="https://user-gold-cdn.xitu.io/2018/11/25/1674acc66f788788?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+<h3 id="2-首次渲染"><a href="#2-首次渲染" class="headerlink" title="(2) 首次渲染"></a>(2) 首次渲染</h3><p>首次执行组件函数  </p>
+<br />
+每当 useState() 被调用时， 如果它是首次渲染， 它会通过 push 将一个 setter 方法（绑定了指针“cursor”位置）放进 setters 数组中，同时，也会将另一个对应的状态放进 state 数组中去。  
+<br />
+
+<img src="https://user-gold-cdn.xitu.io/2018/11/25/1674acc67862c79e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<br />
+<br />
+
+<h3 id="3-后续渲染"><a href="#3-后续渲染" class="headerlink" title="(3) 后续渲染"></a>(3) 后续渲染</h3><p>每次的后续渲染都会重置指针“cursor”的位置，并会从每个数组中读取对应的值。</p>
+<img src="https://user-gold-cdn.xitu.io/2018/11/25/1674acc690273661?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+<h3 id="4-处理事件"><a href="#4-处理事件" class="headerlink" title="(4)处理事件"></a>(4)处理事件</h3><p>每个 setter 都会有一个对应的指针位置的引用，因此当触发任何 setter 调用的时候都会触发去改变状态数组中的对应的值。</p>
+<img src="https://user-gold-cdn.xitu.io/2018/11/25/1674acc694b6c0d5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+<h2 id="底层代码的实现"><a href="#底层代码的实现" class="headerlink" title="底层代码的实现"></a>底层代码的实现</h2><p>这是一段示例代码  </p>
+<p><a href="https://gist.github.com/ryardley/e83bad1985740ab33b18fc578ec1957a" target="_blank" rel="noopener">示例代码(hooks-state-pseudocode.js)</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> state = [];</span><br><span class="line"><span class="keyword">let</span> setters = [];</span><br><span class="line"><span class="keyword">let</span> firstRun = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> cursor = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createSetter</span>(<span class="params">cursor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">setterWithCursor</span>(<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">    state[cursor] = newVal;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This is the pseudocode for the useState helper</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useState</span>(<span class="params">initVal</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (firstRun) &#123;</span><br><span class="line">    state.push(initVal);</span><br><span class="line">    setters.push(createSetter(cursor));</span><br><span class="line">    firstRun = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> setter = setters[cursor];</span><br><span class="line">  <span class="keyword">const</span> value = state[cursor];</span><br><span class="line"></span><br><span class="line">  cursor++;</span><br><span class="line">  <span class="keyword">return</span> [value, setter];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Our component code that uses hooks</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">RenderFunctionComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [firstName, setFirstName] = useState(<span class="string">"Rudi"</span>); <span class="comment">// cursor: 0</span></span><br><span class="line">  <span class="keyword">const</span> [lastName, setLastName] = useState(<span class="string">"Yardley"</span>); <span class="comment">// cursor: 1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Button onClick=&#123;() =&gt; setFirstName(<span class="string">"Richard"</span>)&#125;&gt;Richard&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Button onClick=&#123;() =&gt; setFirstName("Fred")&#125;&gt;Fred&lt;/</span>Button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ This is sort of simulating Reacts rendering cycle</span></span><br><span class="line"><span class="regexp">function MyComponent() &#123;</span></span><br><span class="line"><span class="regexp">  cursor = 0; /</span><span class="regexp">/ resetting the cursor</span></span><br><span class="line"><span class="regexp">  return &lt;RenderFunctionComponent /</span>&gt;; <span class="comment">// render</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(state); <span class="comment">// Pre-render: []</span></span><br><span class="line">MyComponent();</span><br><span class="line"><span class="built_in">console</span>.log(state); <span class="comment">// First-render: ['Rudi', 'Yardley']</span></span><br><span class="line">MyComponent();</span><br><span class="line"><span class="built_in">console</span>.log(state); <span class="comment">// Subsequent-render: ['Rudi', 'Yardley']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// click the 'Fred' button</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(state); <span class="comment">// After-click: ['Fred', 'Yardley']</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="为什么说顺序很重要"><a href="#为什么说顺序很重要" class="headerlink" title="为什么说顺序很重要"></a>为什么说顺序很重要</h2><p>如果我们基于一些外部条件或是说组件的状态去改变 Hooks 在渲染周期的顺序，那会发生什么呢？  </p>
+<p><a href="https://gist.github.com/ryardley/3093d3c440ea6bdcdfcbc058e03ce5ab" target="_blank" rel="noopener">示例代码(hooks-order-dont-do-this-example.jsx)</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstRender = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">RenderFunctionComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> initName;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(firstRender)&#123;</span><br><span class="line">    [initName] = useState(<span class="string">"Rudi"</span>);</span><br><span class="line">    firstRender = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> [firstName, setFirstName] = useState(initName);</span><br><span class="line">  <span class="keyword">const</span> [lastName, setLastName] = useState(<span class="string">"Yardley"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Button onClick=&#123;() =&gt; setFirstName(<span class="string">"Fred"</span>)&#125;&gt;Fred&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="糟糕的首次渲染"><a href="#糟糕的首次渲染" class="headerlink" title="糟糕的首次渲染"></a>糟糕的首次渲染</h3><img src="https://user-gold-cdn.xitu.io/2018/11/25/1674acc69844634e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+<p>到此为止，我们的变量 firstName 与 lastName 依旧包含了正确的数据，让我们继续去看一下第二次渲染会发生什么事情。  </p>
+<h3 id="糟糕的第二次渲染"><a href="#糟糕的第二次渲染" class="headerlink" title="糟糕的第二次渲染"></a>糟糕的第二次渲染</h3><img src="https://user-gold-cdn.xitu.io/2018/11/25/1674acc700a1cf17?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+
+<h2 id="其他方案的缺陷"><a href="#其他方案的缺陷" class="headerlink" title="其他方案的缺陷"></a>其他方案的缺陷</h2><h3 id="缺陷1-限制一个组件调用多次useState-使用-一个-useState-object-代替"><a href="#缺陷1-限制一个组件调用多次useState-使用-一个-useState-object-代替" class="headerlink" title="缺陷1. 限制一个组件调用多次useState 使用 一个 useState(object) 代替"></a>缺陷1. 限制一个组件调用多次useState 使用 一个 useState(object) 代替</h3><p>无法提取custom hook</p>
+<h3 id="缺陷2-组件内useState-接受一个唯一标示的key参数区分state变量"><a href="#缺陷2-组件内useState-接受一个唯一标示的key参数区分state变量" class="headerlink" title="缺陷2. 组件内useState 接受一个唯一标示的key参数区分state变量"></a>缺陷2. 组件内useState 接受一个唯一标示的key参数区分state变量</h3><p>命名冲突</p>
+<h3 id="缺陷3-唯一标示到的key-使用-Symbol-解决命令冲突"><a href="#缺陷3-唯一标示到的key-使用-Symbol-解决命令冲突" class="headerlink" title="缺陷3. 唯一标示到的key 使用 Symbol 解决命令冲突"></a>缺陷3. 唯一标示到的key 使用 Symbol 解决命令冲突</h3><p>同一个Hook 无法调用两次</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Form</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">const</span> name = useFormInput();</span><br><span class="line">  <span class="keyword">const</span> surname = useFormInput();</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;input &#123;...name&#125; /&gt;</span><br><span class="line">      &lt;input &#123;...surname&#125; /&gt;</span><br><span class="line">      &#123;<span class="comment">/* ... */</span>&#125;</span><br><span class="line">    &lt;<span class="regexp">/&gt;    </span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span>*******************</span><br><span class="line"> * useFormInput.js *</span><br><span class="line"> ******************<span class="regexp">/</span></span><br><span class="line"><span class="regexp">const valueKey = Symbol();</span></span><br><span class="line"><span class="regexp"> </span></span><br><span class="line"><span class="regexp">function useFormInput() &#123;</span></span><br><span class="line"><span class="regexp">  const [value, setValue] = useState(valueKey);</span></span><br><span class="line"><span class="regexp">  return &#123;</span></span><br><span class="line"><span class="regexp">    value,</span></span><br><span class="line"><span class="regexp">    onChange(e) &#123;</span></span><br><span class="line"><span class="regexp">      setValue(e.target.value);</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="缺陷4-钻石问题（多层继承问题）"><a href="#缺陷4-钻石问题（多层继承问题）" class="headerlink" title="缺陷4 钻石问题（多层继承问题）"></a>缺陷4 钻石问题（多层继承问题）</h3><p>比如 <code>useWindowWidth()</code>  和 <code>useNetworkStatus()</code> 这两个 custom hooks 可能要用像 <code>useSubscription()</code> 这样的 custom hook，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">StatusMessage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> width = useWindowWidth();</span><br><span class="line">  <span class="keyword">const</span> isOnline = useNetworkStatus();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;p&gt;Window width is &#123;width&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p&gt;You are &#123;isOnline ? 'online' : 'offline'&#125;&lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">function useSubscription(subscribe, unsubscribe, getValue) &#123;</span></span><br><span class="line"><span class="regexp">  const [state, setState] = useState(getValue());</span></span><br><span class="line"><span class="regexp">  useEffect(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    const handleChange = () =&gt; setState(getValue());</span></span><br><span class="line"><span class="regexp">    subscribe(handleChange);</span></span><br><span class="line"><span class="regexp">    return () =&gt; unsubscribe(handleChange);</span></span><br><span class="line"><span class="regexp">  &#125;);</span></span><br><span class="line"><span class="regexp">  return state;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">function useWindowWidth() &#123;</span></span><br><span class="line"><span class="regexp">  const width = useSubscription(</span></span><br><span class="line"><span class="regexp">    handler =&gt; window.addEventListener('resize', handler),</span></span><br><span class="line"><span class="regexp">    handler =&gt; window.removeEventListener('resize', handler),</span></span><br><span class="line"><span class="regexp">    () =&gt; window.innerWidth</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">  return width;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">function useNetworkStatus() &#123;</span></span><br><span class="line"><span class="regexp">  const isOnline = useSubscription(</span></span><br><span class="line"><span class="regexp">    handler =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      window.addEventListener('online', handler);</span></span><br><span class="line"><span class="regexp">      window.addEventListener('offline', handler);</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    handler =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      window.removeEventListener('online', handler);</span></span><br><span class="line"><span class="regexp">      window.removeEventListener('offline', handler);</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    () =&gt; navigator.onLine</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">  return isOnline;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">       &#x2F; useWindowWidth()   \                   &#x2F; useState()  🔴 Clash</span><br><span class="line">Status                        useSubscription() </span><br><span class="line">       \ useNetworkStatus() &#x2F;                   \ useEffect() 🔴 Clash</span><br></pre></td></tr></table></figure>
+
+<p>依赖于固定的顺序调用很自然的解决了它</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">                                                 &#x2F; useState()  ✅ #1. State</span><br><span class="line">       &#x2F; useWindowWidth()   -&gt; useSubscription()                    </span><br><span class="line">      &#x2F;                                          \ useEffect() ✅ #2. Effect</span><br><span class="line">Status                         </span><br><span class="line">      \                                          &#x2F; useState()  ✅ #3. State</span><br><span class="line">       \ useNetworkStatus() -&gt; useSubscription()</span><br><span class="line">                                                 \ useEffect() ✅ #4. Effect</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h1 id="在React-Hooks中使用useReducer的几种用例"><a href="#在React-Hooks中使用useReducer的几种用例" class="headerlink" title="在React Hooks中使用useReducer的几种用例"></a>在React Hooks中使用useReducer的几种用例</h1><p>useReducer hook属于官方扩展的hooks</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useState 的一种替代方式   （state， action） &#x3D;&gt; newState</span><br><span class="line">返回了一个与当前state 成对的 diapatch 方法</span><br></pre></td></tr></table></figure>
+
+<p>下面介绍几种简单示例的代码</p>
+<h2 id="用例1-最小（简单模式）"><a href="#用例1-最小（简单模式）" class="headerlink" title="用例1 最小（简单模式）"></a>用例1 最小（简单模式）</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = <span class="number">0</span></span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span>(action) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'increment'</span>: <span class="keyword">return</span> state + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'decrement'</span>: <span class="keyword">return</span> state <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'reset'</span>: <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">default</span>: <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Unexpected action'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是使用useReducer的组件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> exmaple1 = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, dispatch] = useReducer(reducer, initialStateinitialState)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;count&#125;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch('increment')&#125;&gt;+1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch('decrement')&#125;&gt;-1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch('reset')&#125;&gt;reset<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="用例2-action是一个对象"><a href="#用例2-action是一个对象" class="headerlink" title="用例2 action是一个对象"></a>用例2 action是一个对象</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">  count1: <span class="number">0</span>,</span><br><span class="line">  count2: <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'increment1'</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">count1</span>: state.count1 + <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'decrement1'</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">count1</span>: state.count1 - <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'set1'</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">count1</span>: action.count &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'increment2'</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">count2</span>: state.count2 + <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'decrement2'</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">count2</span>: state.count2 - <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'set2'</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">count2</span>: action.count &#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Unexpected action'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useState-和-useReducer-什么时候使用"><a href="#useState-和-useReducer-什么时候使用" class="headerlink" title="useState 和 useReducer 什么时候使用"></a>useState 和 useReducer 什么时候使用</h2><ul>
+<li>When it’s just an independent element of state you’re managing: useState</li>
+<li>When one element of your state relies on the value of another element of your state in order to update: useReducer</li>
+</ul>
+<ul>
+<li>如果 state 的类型为 Number, String, Boolean 建议使用 useState，如果 state 的类型 为 Object 或 Array，建议使用 useReducer</li>
+<li>如果 state 变化非常多，也是建议使用 useReducer，集中管理 state 变化，便于维护</li>
+<li>如果 state 关联变化，建议使用 useReducer</li>
+<li>业务逻辑如果很复杂，也建议使用 useReducer</li>
+<li>如果 state 只想用在 组件内部，建议使用 useState，如果想维护全局 state 建议使用 useReducer</li>
+</ul>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
+<li><a href="https://juejin.im/post/6844903721688629256" target="_blank">(译)React hooks：它不是一种魔法，只是一个数组——使用图表揭秘提案规则</a>  </li>
+<li><a href="https://juejin.im/post/6844903817981460493" target="_blank">【译】在 React Hooks 中使用 useReducer 的几种用例</a>  </li>
+<li><a href="https://medium.com/crowdbotics/how-to-use-usereducer-in-react-hooks-for-performance-optimization-ecafca9e7bf5" target="_blank">How to use useReducer in React Hooks for performance optimization</a></li>
+<li><a href="https://gist.github.com/ryardley/e83bad1985740ab33b18fc578ec1957a" target="_blank">hooks-state-pseudocode.js</a>
+</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://liuxing95.github.io/2020/10/23/react/hooks/react%20hooks%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="react hooks学习总结" target="_blank" rel="external">https://liuxing95.github.io/2020/10/23/react/hooks/react%20hooks%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/liuxing95" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/liuxing95" target="_blank"><span class="text-dark">打工人</span><small class="ml-1x">打工人</small></a></h3>
+        <div>一个不想放弃的打工人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/06/18/babel/" title="babel"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/liuxing95" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

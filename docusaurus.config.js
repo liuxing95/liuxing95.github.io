@@ -19,7 +19,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'liuxing95', // Usually your GitHub org/user name.
-  projectName: 'daily', // Usually your repo name.
+  projectName: "liuxing95.github.io", // Usually your repo name.
   deploymentBranch: "gh-pages",
 
   onBrokenLinks: 'throw',
